@@ -8,4 +8,5 @@ export function setupStore(app: App<Element>) {
     app.use(store);
 }
 
+export * from "./module/menu"
 export { store };
