@@ -5,6 +5,9 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { resolve } from "path";
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Inspect from 'vite-plugin-inspect'
 
 
 // Vite配置  https://cn.vitejs.dev/config
@@ -39,6 +42,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         resolvers: [
           // 导入 Element Plus函数，如：ElMessage, ElMessageBox 等
           ElementPlusResolver({ importStyle: "sass" }),
+          // Auto import icon components
+          // 自动导入图标组件
+          IconsResolver({
+            prefix: 'Icon',
+          }),
         ],
         vueTemplate: true,
         // 导入函数类型声明文件路径 (false:关闭自动生成)
@@ -50,6 +58,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         resolvers: [
           // 导入 Element Plus 组件
           ElementPlusResolver({ importStyle: "sass" }),
+          // Auto register icon components
+          // 自动注册图标组件
+          IconsResolver({
+            enabledCollections: ['ep'],
+          }),
         ],
         // 指定自定义组件位置(默认:src/components)
         dirs: ["src/components", "src/**/components"],
@@ -57,6 +70,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         // dts: false,
         dts: "src/types/components.d.ts",
       }),
+      Icons({
+        autoInstall: true,
+      }),
+
+      Inspect(),
+
     ] as PluginOption[],
   };
 });

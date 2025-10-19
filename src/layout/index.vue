@@ -133,7 +133,10 @@
   </el-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
+defineOptions({
+  name: 'BasicLayout',
+})
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
@@ -156,7 +159,6 @@ const activeMenu = computed(() => route.path)
 // 响应式数据
 const isCollapse = ref(false)
 const isFullscreen = ref(false)
-const activeTab = ref('')
 
 // 用户信息
 const userInfo = ref({
@@ -190,10 +192,14 @@ const toggleFullscreen = async () => {
 const handleUserCommand = (command) => {
   switch (command) {
     case 'profile':
-      router.push('/user/profile')
+      router.push({
+        name: 'Profile',
+      })
       break
     case 'settings':
-      router.push('/user/settings')
+      router.push({
+        name: 'Settings',
+      })
       break
     case 'logout':
       handleLogout()
@@ -204,7 +210,9 @@ const handleUserCommand = (command) => {
 const handleLogout = () => {
   // 退出登录逻辑
   console.log('退出登录')
-  router.push('/login')
+  router.push({
+    name: 'Login',
+  })
 }
 
 // 监听全屏变化

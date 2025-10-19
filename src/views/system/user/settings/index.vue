@@ -1,5 +1,5 @@
 <template>
-  user settings
+  user setting
 </template>
 <script setup lang="ts">
 

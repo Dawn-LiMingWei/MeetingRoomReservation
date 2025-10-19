@@ -9,4 +9,5 @@ export function setupStore(app: App<Element>) {
 }
 
 export * from "./module/menu"
+export * from "./module/user"
 export { store };

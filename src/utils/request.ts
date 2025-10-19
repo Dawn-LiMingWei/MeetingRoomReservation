@@ -1,4 +1,5 @@
-import axios, { type InternalAxiosRequestConfig, type AxiosResponse } from "axios";
+import axios, { type AxiosResponse } from "axios";
+import { ApiCodeEnum } from "@/enums/code-enum";
 import qs from "qs";
 
 /**
@@ -43,7 +44,6 @@ httpRequest.interceptors.response.use(
 
         // 业务错误
         const error = new Error(msg || "系统出错");
-        // 添加code到error对象上，方便外部获取
         (error as any).code = code;
         return Promise.reject(error);
     },
