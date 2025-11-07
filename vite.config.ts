@@ -8,7 +8,7 @@ import { resolve } from "path";
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Inspect from 'vite-plugin-inspect'
-
+import { mockDevServerPlugin } from 'vite-plugin-mock-dev-server'
 
 // Vite配置  https://cn.vitejs.dev/config
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
@@ -29,12 +29,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         [env.VITE_APP_BASE_API]: {
           changeOrigin: true,
           target: env.VITE_APP_API_URL,
-          rewrite: (path: string) => path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
+          rewrite: path => path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
         },
       },
     },
     plugins: [
       vue(),
+      ...(env.VITE_MOCK_DEV_SERVER === "true" ? [mockDevServerPlugin()] : []),
       // API 自动导入
       AutoImport({
         // 导入 Vue 函数，如：ref, reactive, toRef 等

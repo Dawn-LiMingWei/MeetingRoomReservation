@@ -25,3 +25,4 @@ dist-ssr
 /src/types/auto-imports.d.ts
 /src/types/components.d.ts
 /package-lock.json
+/pnpm-lock.yaml

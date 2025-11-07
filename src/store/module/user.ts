@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { store } from "@/store"
-import USER_API, { type LoginForm } from "@/api/login/login-api";
+import USER_API, {type LoginForm, type UserInfo} from "@/api/login/login-api";
 import {ApiCodeEnum} from "@/enums/code-enum";
 import { useRouter } from "vue-router";
 
@@ -8,11 +8,12 @@ import { useRouter } from "vue-router";
 export const userStore = defineStore("user", () => {
 
     const router = useRouter();
+    const userInfo = ref<UserInfo>();
 
     // actions
     const login = async (loginForm: LoginForm) => {
         try {
-            await USER_API.login(loginForm);
+            userInfo.value = await USER_API.login(loginForm);
             ElMessage.success("登陆成功");
 
             await router.push({
@@ -35,6 +36,8 @@ export const userStore = defineStore("user", () => {
 
     return {
         login,
+
+        userInfo,
     }
 });
 

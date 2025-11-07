@@ -19,7 +19,9 @@
           ref="loginFormRef"
           :model="formData"
           :rules="formRules"
+          :label-width="80"
           @submit.prevent="handleLogin"
+          @keyup.enter="handleLogin"
           class="login-form"
           size="large"
         >
@@ -42,9 +44,11 @@
               </template>
               <el-input
                 v-model="formData.password"
-                placeholder="请输入用户密码"
+                type="password"
+                placeholder="请输入密码"
                 :prefix-icon="Lock"
                 clearable
+                show-password
               />
             </el-form-item>
           </div>
@@ -77,8 +81,8 @@ const loginFormRef = ref<FormInstance>();
 
 // 响应式数据
 const formData = reactive<LoginForm>({
-  username: "",
-  password: "",
+  username: "admin",
+  password: "admin",
 });
 
 // 表单校验规则
@@ -180,29 +184,6 @@ const handleLogin = async () => {
   font-size: 0.95rem;
 }
 
-.login-form {
-  margin-bottom: 2rem;
-}
-
-.form-item-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-item {
-  margin-bottom: 1.5rem;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #374151;
-  font-size: 0.95rem;
-}
-
-.submit-item {
-  margin-bottom: 0;
-}
 
 .login-btn {
   width: 100%;

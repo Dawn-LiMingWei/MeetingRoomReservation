@@ -3,9 +3,9 @@
     <!-- 顶部 Header -->
     <el-header class="layout-header">
       <div class="header-left">
-        <div class="logo" @click="router.push('/')">
+        <div class="logo" @click="router.push('/dashboard')">
           <img src="/vite.svg" alt="Logo" />
-          <span v-show="!isCollapse" class="logo-text">WebGameHall</span>
+          <span v-show="!isCollapse" class="logo-text">会议室预约系统</span>
         </div>
       </div>
 
@@ -36,8 +36,8 @@
         <!-- 用户菜单 -->
         <el-dropdown @command="handleUserCommand">
           <span class="user-dropdown">
-            <el-avatar :size="32" :src="userInfo.avatar" />
-            <span class="user-name">{{ userInfo.name }}</span>
+            <el-avatar :size="32" :src="userAvatar" />
+            <span class="user-name">{{ userInfo?.nickname || "Unknown" }}</span>
             <el-icon><ArrowDown /></el-icon>
           </span>
           <template #dropdown>
@@ -148,23 +148,21 @@ import {
   SwitchButton,
   ArrowDown
 } from '@element-plus/icons-vue'
-import { useMenuStore } from "@/store";
+import {useMenuStore, useUserStore} from "@/store";
 
 const route = useRoute()
 const router = useRouter()
 const menuStore = useMenuStore()
 const menuRoutes = computed(() => menuStore.menuRoutes)
 const activeMenu = computed(() => route.path)
+const userStore = useUserStore();
+const { userInfo } = storeToRefs(userStore)
+
+const userAvatar = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png')
 
 // 响应式数据
 const isCollapse = ref(false)
 const isFullscreen = ref(false)
-
-// 用户信息
-const userInfo = ref({
-  name: '管理员',
-  avatar: 'https://avatars.githubusercontent.com/u/1?v=4'
-})
 
 const breadcrumbList = computed(() => {
   return route.matched.filter(item => item.meta && item.meta?.title)
@@ -189,7 +187,7 @@ const toggleFullscreen = async () => {
   }
 }
 
-const handleUserCommand = (command) => {
+const handleUserCommand = (command: string) => {
   switch (command) {
     case 'profile':
       router.push({

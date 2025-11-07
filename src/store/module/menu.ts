@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router'
+import {type RouteRecordRaw, useRouter} from 'vue-router'
 
 export const useMenuStore = defineStore('menu', () => {
     const router = useRouter()
@@ -19,7 +19,7 @@ export const useMenuStore = defineStore('menu', () => {
     })
 
     // 过滤菜单路由
-    const filterMenuRoutes = (routes) => {
+    const filterMenuRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
         return routes.filter(route => {
             // 不显示隐藏的路由
             if (route.meta?.hidden) return false
