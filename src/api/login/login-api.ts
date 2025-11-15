@@ -1,7 +1,7 @@
 import request from "@/utils/request"
 import type {RoleEnumType} from "@/enums/role-enum.ts";
 
-const BASE_API_URL ="/api/account";
+const BASE_API_URL ="/user";
 
 const USER_API = {
     login(loginForm: LoginForm) {
@@ -24,6 +24,6 @@ export interface LoginForm {
 }
 
 export interface UserInfo {
-    nickname: string;
+    username: string;
     role: RoleEnumType;
 }

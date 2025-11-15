@@ -3,7 +3,7 @@ import { defineMock } from "../index";
 
 export default defineMock([
     {
-      url: "account/login",
+      url: "user/login",
       method: ["POST"],
       body: ({ body }) => {
         const { username, password } = body
@@ -12,7 +12,7 @@ export default defineMock([
           return {
             code: '00000',
             data: {
-              nickname: '会议室管理员',
+              username: '会议室管理员',
               role: "ADMIN",
             },
             msg: '登录成功'
@@ -23,7 +23,7 @@ export default defineMock([
           return {
             code: '00000',
             data: {
-              nickname: '普通用户',
+              username: '普通用户',
               role: "USER",
             },
             msg: '登录成功'

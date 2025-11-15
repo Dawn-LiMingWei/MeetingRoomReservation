@@ -37,7 +37,7 @@
         <el-dropdown @command="handleUserCommand">
           <span class="user-dropdown">
             <el-avatar :size="32" :src="userAvatar" />
-            <span class="user-name">{{ userInfo?.nickname || "Unknown" }}</span>
+            <span class="user-name">{{ userInfo?.username || "Unknown" }}</span>
             <el-icon><ArrowDown /></el-icon>
           </span>
           <template #dropdown>
