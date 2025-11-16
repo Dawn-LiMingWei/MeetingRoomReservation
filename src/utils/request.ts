@@ -50,7 +50,7 @@ httpRequest.interceptors.response.use(
     async (error) => {
         console.error("Response interceptor error:", error);
 
-        const { config, response } = error;
+        const { response } = error;
 
         // 网络错误或服务器无响应
         if (!response) {
