@@ -10,11 +10,19 @@ export const userStore = defineStore("user", () => {
     const router = useRouter();
     const userInfo = ref<UserInfo>();
 
+    // 页面刷新时从localStorage恢复用户信息
+    const storedUserInfo = localStorage.getItem('userInfo');
+    if (storedUserInfo) {
+        userInfo.value = JSON.parse(storedUserInfo);
+    }
+
     // actions
     const login = async (loginForm: LoginForm) => {
         try {
             userInfo.value = await USER_API.login(loginForm);
             ElMessage.success("登陆成功");
+            // 将信息存储到本地
+            localStorage.setItem('userInfo', JSON.stringify(userInfo.value));
 
             await router.push({
                 name: 'Dashboard',
@@ -34,8 +42,18 @@ export const userStore = defineStore("user", () => {
         }
     }
 
+    // 登出方法
+    const logout = async () => {
+        userInfo.value = undefined;
+        localStorage.removeItem('userInfo');
+        await router.push({
+            name: 'Login',
+        });
+    }
+
     return {
         login,
+        logout,
 
         userInfo,
     }
@@ -47,5 +65,3 @@ export const userStore = defineStore("user", () => {
 export function useUserStore() {
     return userStore(store);
 }
-
-

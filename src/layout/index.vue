@@ -207,10 +207,7 @@ const handleUserCommand = (command: string) => {
 
 const handleLogout = () => {
   // 退出登录逻辑
-  console.log('退出登录')
-  router.push({
-    name: 'Login',
-  })
+  userStore.logout();
 }
 
 // 监听全屏变化
